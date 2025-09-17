@@ -3,211 +3,73 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Birthday Gift Card</title>
+  <title>Pembuka Birthday</title>
   <style>
     body {
       margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: #e6f0ff;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
-      overflow-x: hidden;
+      height: 100vh;
+      background: #ffe6f0;
+      font-family: 'Poppins', sans-serif;
+      flex-direction: column;
+      overflow: hidden;
     }
 
-    .card {
-      background: white;
-      border-radius: 20px;
-      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-      max-width: 500px;
-      width: 90%;
+    h1 {
+      font-size: 2rem;
+      color: #ff4da6;
+      animation: bounce 2s infinite;
+      margin-bottom: 20px;
       text-align: center;
-      overflow: hidden;
-      position: relative;
-      z-index: 2;
-      animation: fadeIn 1.5s ease;
-      margin: 20px;
     }
 
-    @keyframes fadeIn {
-      from {opacity: 0; transform: scale(0.9);}
-      to {opacity: 1; transform: scale(1);}
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
     }
 
-    /* Slideshow */
-    .slideshow {
-      position: relative;
-      width: 100%;
-      height: 300px;
-      overflow: hidden;
-    }
-    .slideshow img {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0;
-      transition: opacity 1s;
-      border-bottom: 3px solid #4a90e2;
-    }
-    .slideshow img.active {
-      opacity: 1;
-    }
-    .controls {
-      position: absolute;
-      width: 100%;
-      top: 50%;
-      display: flex;
-      justify-content: space-between;
-      transform: translateY(-50%);
-      padding: 0 15px;
-    }
-    .btn {
-      background: rgba(74,144,226,0.8);
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 40px; height: 40px;
+    .cake {
+      width: 150px;
       cursor: pointer;
-      font-size: 1.5rem;
-      transition: 0.3s;
-    }
-    .btn:hover {
-      background: #357ABD;
+      transition: transform 0.3s;
     }
 
-    /* Music controls */
-    .music {
-      background: #f0f8ff;
-      padding: 15px;
-      border-top: 2px solid #d6eaff;
-    }
-    .song-title {
-      display: block;
-      font-weight: bold;
-      margin-bottom: 8px;
-      color: #4a90e2;
-      animation: blink 2s infinite;
-    }
-    @keyframes blink {
-      0%, 100% {opacity: 1;}
-      50% {opacity: 0.6;}
+    .cake:hover {
+      transform: scale(1.1);
     }
 
-    /* Message */
-    .message {
-      padding: 20px;
-    }
-    .message h1 {
-      color: #4a90e2;
-      margin-bottom: 15px;
-    }
-    .message p {
-      line-height: 1.6;
-      font-size: 1rem;
-      color: #444;
-    }
-
-    /* Confetti */
-    #confetti {
+    /* animasi confetti */
+    .confetti {
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
       pointer-events: none;
-      z-index: 1;
+      z-index: -1;
     }
   </style>
 </head>
 <body>
-  <div class="card" id="card" role="region" aria-label="Birthday Card">
-    <div class="top">
-      <!-- Slideshow -->
-      <div class="slideshow" id="slideshow">
-        <img src="images/photo1.jpg" alt="Foto 1" class="active">
-        <img src="images/photo2.jpg" alt="Foto 2">
-        <img src="images/photo3.jpg" alt="Foto 3">
-        <div class="controls">
-          <button class="btn" id="prev">‹</button>
-          <button class="btn" id="next">›</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Music (pindah ke bawah foto) -->
-    <div class="music">
-      <span class="song-title">♪ You Are Beautiful</span>
-      <audio id="bgMusic" src="audio/you-are-beautiful.mp3" preload="auto"></audio>
-      <button class="btn" id="musicToggle">▶</button>
-    </div>
-
-    <!-- Message -->
-    <div class="message">
-      <h1>Untuk Meimei Tersayang ✨</h1>
-      <p>
-        Selamat ulang tahun meimei aku yang lucuu✨<br>
-        Ciee udah nambah gede sekarang, semoga sehat selalu, lancar rejekinya, tambah baik, lancar kuliahnya, kedepannya jalannya dipermudah, jangan lupa terus berdoa kepada Tuhan, berdoa yg terbaik, semoga tambah bucin aaww, semoga cepet meet juga sama cowo kamu, yg pasti semoga cepet meet sama aku🤗<br><br>
-        Pokonya wish you all the best🥰
-      </p>
-    </div>
-  </div>
+  <h1>Happy Birthday Wo De Meimei 🎉</h1>
+  <a href="main.html">
+    <img src="images/cake.png" alt="Kue Ulang Tahun" class="cake">
+  </a>
 
   <canvas class="confetti" id="confetti"></canvas>
 
   <script>
-    // Slideshow
-    const slides = document.querySelectorAll("#slideshow img");
-    let current = 0;
-    const nextBtn = document.getElementById("next");
-    const prevBtn = document.getElementById("prev");
-
-    function showSlide(index) {
-      slides.forEach((slide, i) => {
-        slide.classList.toggle("active", i === index);
-      });
-    }
-
-    nextBtn.addEventListener("click", () => {
-      current = (current + 1) % slides.length;
-      showSlide(current);
-    });
-    prevBtn.addEventListener("click", () => {
-      current = (current - 1 + slides.length) % slides.length;
-      showSlide(current);
-    });
-
-    // Auto slideshow
-    setInterval(() => {
-      current = (current + 1) % slides.length;
-      showSlide(current);
-    }, 3000);
-
-    // Music toggle
-    const music = document.getElementById("bgMusic");
-    const toggleBtn = document.getElementById("musicToggle");
-
-    toggleBtn.addEventListener("click", () => {
-      if (music.paused) {
-        music.play();
-        toggleBtn.textContent = "⏸";
-      } else {
-        music.pause();
-        toggleBtn.textContent = "▶";
-      }
-    });
-
-    // Confetti
+    // confetti sederhana
     const confettiCanvas = document.getElementById("confetti");
     const ctx = confettiCanvas.getContext("2d");
     confettiCanvas.width = window.innerWidth;
     confettiCanvas.height = window.innerHeight;
 
-    const confettis = Array.from({length: 150}, () => ({
+    const confettis = Array.from({length: 100}, () => ({
       x: Math.random() * confettiCanvas.width,
       y: Math.random() * confettiCanvas.height,
       r: Math.random() * 6 + 2,
-      d: Math.random() * 150,
+      d: Math.random() * 100,
       color: `hsl(${Math.random() * 360}, 70%, 60%)`,
       tilt: Math.floor(Math.random() * 10) - 10,
       tiltAngleIncremental: Math.random() * 0.07 + 0.05,
